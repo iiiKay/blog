@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kay.dao.BlogDao">
+    <resultMap id="blogs" type="com.kay.pojo.Blog">
+        <id column="b_id" property="id"/>
+        <result column="u_id" property="uId"/>
+        <result column="b_title" property="title"/>
+        <result column="b_content" property="content"/>
+        <result column="b_date" property="date"/>
+        <result column="u_name" property="name"/>
+        <result column="u_img" property="img"/>
+    </resultMap>
+
+    <select id="getBlogById" resultMap="blogs">
+        SELECT b.b_id,
+               b.u_id,
+               b.b_title,
+               b.b_content,
+               b.b_date,
+               u.u_name,
+               u.u_img
+        FROM blogs AS b,
+             users AS u
+        WHERE b_id = #{id}
+          AND b.u_id = u.u_id
+    </select>
+
+    <select id="getBlogs" resultMap="blogs">
+        SELECT b.b_id,
+               b.b_title,
+               u.u_name,
+               u.u_img
+        FROM blogs AS b,
+             users AS u
+             WHERE b.u_id = u.u_id
+    </select>
+
+    <select id="getBlogByKey" resultMap="blogs">
+        SELECT b.b_id,
+               b.b_title,
+               u.u_name,
+               u.u_img
+        FROM blogs AS b,
+             users AS u
+        WHERE b.u_id = u.u_id
+          AND b.b_title like concat(concat('%', #{text}), '%')
+    </select>
+
+    <select id="getBlogsByUId" resultMap="blogs">
+        SELECT b.b_id,
+               b.b_title,
+               u.u_name,
+               u.u_img
+        FROM blogs AS b,
+             users AS u
+        WHERE u.u_id = #{uid}
+          AND b.u_id = #{uid}
+    </select>
+    <select id="isMyBlog" resultMap="blogs">
+        select b_id
+        from blogs
+        where b_id = #{id}
+          and u_id = #{uid}
+    </select>
+</mapper>

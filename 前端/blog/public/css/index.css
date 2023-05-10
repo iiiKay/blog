@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+    /* overflow-x: hidden; */
+}
+
+#app {
+    height: 100%;
+}
+
+.md-editor-toolbar-left{
+    flex-wrap: wrap;
+}
+
+.md-editor{
+    flex: 1;
+}
